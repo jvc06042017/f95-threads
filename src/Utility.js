@@ -16,7 +16,7 @@ Utility.getUrlFromId = function (id) {
 
 Utility.getThreads = function () {
     let jsonThread = GM_getValue('threads');
-    return jsonThread ? JSON.parse(jsonThread) : [];
+    return jsonThread && jsonThread !== 'undefined' ? JSON.parse(jsonThread) : [];
 };
 
 Utility.saveThreads = function (threads) {

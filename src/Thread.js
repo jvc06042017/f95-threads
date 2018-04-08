@@ -8,6 +8,7 @@ class Thread {
         };
 
         this.addEventListener();
+        this.addButtons();
     }
 
     addEventListener() {
@@ -35,6 +36,34 @@ class Thread {
                         break;
                 }
             }
+        });
+    }
+
+    addButtons() {
+        let $buttons = $(`
+            <div style="position: absolute; width:100%; text-align:center; top:0;">
+                <button data-add="good">Good</button>
+                <button data-add="waiting">Waiting</button>
+                <button data-add="downloaded">Downloaded</button>
+                <button data-add="bad">Bad</button>
+            </div>
+        `);
+
+        $(window).scroll(function () {
+            let windowScrollTop = $(window).scrollTop();
+            if (windowScrollTop === 0) {
+                $buttons.css('top', 0);
+            } else {
+                $buttons.css('top', 50 + windowScrollTop);
+            }
+        });
+
+        $buttons.appendTo(document.body);
+
+        $buttons.on('click', '[data-add]', (e) => {
+            let $button = $(e.currentTarget);
+            this.threadInfo.desc = $button.data('add');
+            this.addThread();
         });
     }
 

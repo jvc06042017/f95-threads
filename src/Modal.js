@@ -150,8 +150,9 @@ class Modal {
 
         // save threads as a json file
         $('#saveThreads').click(() => {
+            let threads = Utility.getThreads();
             var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.threads)));
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(threads)));
             element.setAttribute('download', 'savedThreads.json');
 
             element.style.display = 'none';
