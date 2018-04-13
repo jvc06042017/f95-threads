@@ -23,44 +23,40 @@ class Modal {
 
     appendToBody() {
         this.$modal = $(`
-        <div id="f95-modal" class="spectre-modal">
-            <a href="#close" class="spectre-modal-overlay" data-close="true"></a>
-            <div class="spectre-modal-container">
-                <div class="spectre-modal-header">
-                    <a href="#close" class="spectre-btn spectre-btn-clear spectre-float-right" data-close="true"></a>
-                    <div class="spectre-modal-title spectre-h5">F95 - Threads</div>
-                </div>
-                <div class="spectre-modal-body">
-                    <div class="spectre-content">
-                        <div class="spectre-container">
-                            <div class="spectre-columns">
-                                <div class="spectre-column col-3">
-                                    <h1 data-check="good">Good</h1>
-                                    <input data-search="good" type="text">
-                                    <div id="good-list"></div>
-                                </div>
-                                <div class="spectre-column col-3">
-                                    <h1 data-check="waiting">Waiting</h1>
-                                    <input data-search="waiting" type="text">
-                                    <div id="waiting-list"></div>
-                                </div>
-                                <div class="spectre-column col-3">
-                                    <h1 data-check="downloaded">Downloaded</h1>
-                                    <input data-search="downloaded" type="text">
-                                    <div id="downloaded-list"></div>
-                                </div>
-                                <div class="spectre-column col-3">
-                                    <h1 data-check="bad">Bad</h1>
-                                    <input data-search="bad" type="text">
-                                    <div id="bad-list"></div>
-                                </div>
-                            </div>
+        <div id="f95-modal" class="f95-modal">
+            <div class="f95-modal-background" data-close="true"></div>
+            <div class="f95-modal-card">
+                <header class="f95-modal-card-head">
+                    <p class="f95-modal-card-title">F95 - Threads</p>
+                    <button class="f95-delete" data-close="true"></button>
+                </header>
+                <section class="f95-modal-card-body">
+                    <div class="f95-columns">
+                        <div class="f95-column">
+                            <h1 data-check="good">Good</h1>
+                            <input data-search="good" type="text">
+                            <div id="good-list"></div>
+                        </div>
+                        <div class="f95-column">
+                            <h1 data-check="waiting">Waiting</h1>
+                            <input data-search="waiting" type="text">
+                            <div id="waiting-list"></div>
+                        </div>
+                        <div class="f95-column">
+                            <h1 data-check="downloaded">Downloaded</h1>
+                            <input data-search="downloaded" type="text">
+                            <div id="downloaded-list"></div>
+                        </div>
+                        <div class="f95-column">
+                            <h1 data-check="bad">Bad</h1>
+                            <input data-search="bad" type="text">
+                            <div id="bad-list"></div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    ...
-                </div>
+                <footer class="f95-modal-card-foot">
+                    <button class="f95-button">Close</button>
+                </footer>
             </div>
         </div>`);
 
@@ -87,20 +83,20 @@ class Modal {
         $(document.body).append(this.$modal);
 
         // Add css for the modal
-        let spectre = GM_getResourceText('spectre');
-        GM_addStyle(spectre);
+        let f95 = GM_getResourceText('f95');
+        GM_addStyle(f95);
     }
 
     bindEvent() {
         // Open the modal when pressing the numpad 8 key
         $(document).on('keyup', (e) => {
             if (e.keyCode === 104) {
-                this.$modal.addClass('spectre-active');
+                this.$modal.addClass('f95-is-active');
             }
         });
 
         // Hide the modal when clicking on the background or on the close icon
-        this.$modal.find('[data-close="true"]').click(() => this.$modal.removeClass('spectre-active'));
+        this.$modal.find('[data-close="true"]').click(() => this.$modal.removeClass('f95-is-active'));
 
         // Check for update for a whole tag list
         this.$modal.on('click', '[data-check]', (e) => {
