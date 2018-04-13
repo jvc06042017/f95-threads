@@ -23,26 +23,44 @@ class Modal {
 
     appendToBody() {
         this.$modal = $(`
-        <div id="f95-modal" data-izimodal-title="F95 - Threads">
-            <div>
-                <h1 data-check="good">Good</h1>
-                <input data-search="good" type="text">
-                <div id="good-list"></div>
-            </div>
-            <div>
-                <h1 data-check="waiting">Waiting</h1>
-                <input data-search="waiting" type="text">
-                <div id="waiting-list"></div>
-            </div>
-            <div>
-                <h1 data-check="downloaded">Downloaded</h1>
-                <input data-search="downloaded" type="text">
-                <div id="downloaded-list"></div>
-            </div>
-            <div>
-                <h1 data-check="bad">Bad</h1>
-                <input data-search="bad" type="text">
-                <div id="bad-list"></div>
+        <div id="f95-modal" class="spectre-modal">
+            <a href="#close" class="spectre-modal-overlay" data-close="true"></a>
+            <div class="spectre-modal-container">
+                <div class="spectre-modal-header">
+                    <a href="#close" class="spectre-btn spectre-btn-clear spectre-float-right" data-close="true"></a>
+                    <div class="spectre-modal-title spectre-h5">F95 - Threads</div>
+                </div>
+                <div class="spectre-modal-body">
+                    <div class="spectre-content">
+                        <div class="spectre-container">
+                            <div class="spectre-columns">
+                                <div class="spectre-column col-3">
+                                    <h1 data-check="good">Good</h1>
+                                    <input data-search="good" type="text">
+                                    <div id="good-list"></div>
+                                </div>
+                                <div class="spectre-column col-3">
+                                    <h1 data-check="waiting">Waiting</h1>
+                                    <input data-search="waiting" type="text">
+                                    <div id="waiting-list"></div>
+                                </div>
+                                <div class="spectre-column col-3">
+                                    <h1 data-check="downloaded">Downloaded</h1>
+                                    <input data-search="downloaded" type="text">
+                                    <div id="downloaded-list"></div>
+                                </div>
+                                <div class="spectre-column col-3">
+                                    <h1 data-check="bad">Bad</h1>
+                                    <input data-search="bad" type="text">
+                                    <div id="bad-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    ...
+                </div>
             </div>
         </div>`);
 
@@ -67,30 +85,22 @@ class Modal {
 
         // Add the modal to the website
         $(document.body).append(this.$modal);
-        this.$modal.iziModal({
-            headerColor: 'rgb(125, 63, 61)',
-            width: '60%',
-            overlayColor: 'rgba(0, 0, 0, 0.75)',
-            fullscreen: true,
-            transitionIn: 'fadeInUp',
-            transitionOut: 'fadeOutDown'
-        });
 
         // Add css for the modal
-        let izimodal = GM_getResourceText('izimodal');
-        GM_addStyle(izimodal);
+        let spectre = GM_getResourceText('spectre');
+        GM_addStyle(spectre);
     }
 
     bindEvent() {
         // Open the modal when pressing the numpad 8 key
         $(document).on('keyup', (e) => {
             if (e.keyCode === 104) {
-                this.$modal.iziModal('open');
+                this.$modal.addClass('spectre-active');
             }
         });
 
         // Hide the modal when clicking on the background or on the close icon
-        this.$modal.find('.c-modal-background, .close-modal').click(() => this.$modal.removeClass('c-is-active'));
+        this.$modal.find('[data-close="true"]').click(() => this.$modal.removeClass('spectre-active'));
 
         // Check for update for a whole tag list
         this.$modal.on('click', '[data-check]', (e) => {
