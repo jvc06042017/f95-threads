@@ -53,7 +53,7 @@ class Modal {
                             <div id="bad-list"></div>
                         </div>
                     </div>
-                </div>
+                </section>
                 <footer class="f95-modal-card-foot">
                     <button class="f95-button">Close</button>
                 </footer>
