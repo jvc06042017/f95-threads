@@ -23,42 +23,26 @@ class Modal {
 
     appendToBody() {
         this.$modal = $(`
-        <div id="f95-modal" class="c-modal">
-            <div class="c-modal-background"></div>
-            <div class="c-modal-card">
-                <header class="c-modal-card-head c-dark">
-                    <p class="c-modal-card-title c-dark">F95 - Threads</p>
-                    <span id="uploadThreads" class="fa fa-upload" style="color: white; margin-right:10px"></span>
-                    <span id="saveThreads" class="fa fa-save" style="color: white; margin-right:10px"></span>
-                    <button class="c-delete close-modal" aria-label="close"></button>
-                </header>
-                <section class="c-modal-card-body c-dark c-scrollbar" style="display:flex">
-                    <div class="c-columns">
-                        <div class="c-column c-text-center" style="display:flex; flex-direction: column">
-                            <h1 data-check="good" class="c-light">Good</h1>
-                            <input data-search="good" type="text" class="c-dark-input c-light">
-                            <div id="good-list" style="overflow-y: scroll"></div>
-                        </div>
-                        <div class="c-column c-text-center" style="display:flex; flex-direction: column">
-                            <h1 data-check="waiting" class="c-light">Waiting</h1>
-                            <input data-search="waiting" type="text" class="c-dark-input c-light">
-                            <div id="waiting-list" style="overflow-y: scroll"></div>
-                        </div>
-                        <div class="c-column c-text-center" style="display:flex; flex-direction: column">
-                            <h1 data-check="downloaded" class="c-light">Downloaded</h1>
-                            <input data-search="downloaded" type="text" class="c-dark-input c-light">
-                            <div id="downloaded-list" style="overflow-y: scroll"></div>
-                        </div>
-                        <div class="c-column c-text-center" style="display:flex; flex-direction: column">
-                            <h1 data-check="bad" class="c-light">Bad</h1>
-                            <input data-search="bad" type="text" class="c-dark-input c-light">
-                            <div id="bad-list" style="overflow-y: scroll"></div>
-                        </div>
-                    </div>
-                </section>
-                <footer class="c-modal-card-foot c-dark field is-grouped is-grouped-right">
-                    <button class="c-button close-modal is-link">Close</button>
-                </footer>
+        <div id="f95-modal" data-izimodal-title="F95 - Threads">
+            <div>
+                <h1 data-check="good">Good</h1>
+                <input data-search="good" type="text">
+                <div id="good-list"></div>
+            </div>
+            <div>
+                <h1 data-check="waiting">Waiting</h1>
+                <input data-search="waiting" type="text">
+                <div id="waiting-list"></div>
+            </div>
+            <div>
+                <h1 data-check="downloaded">Downloaded</h1>
+                <input data-search="downloaded" type="text">
+                <div id="downloaded-list"></div>
+            </div>
+            <div>
+                <h1 data-check="bad">Bad</h1>
+                <input data-search="bad" type="text">
+                <div id="bad-list"></div>
             </div>
         </div>`);
 
@@ -83,17 +67,25 @@ class Modal {
 
         // Add the modal to the website
         $(document.body).append(this.$modal);
+        this.$modal.iziModal({
+            headerColor: 'rgb(125, 63, 61)',
+            width: '60%',
+            overlayColor: 'rgba(0, 0, 0, 0.75)',
+            fullscreen: true,
+            transitionIn: 'fadeInUp',
+            transitionOut: 'fadeOutDown'
+        });
 
         // Add css for the modal
-        let cModal = GM_getResourceText('cModal');
-        GM_addStyle(cModal);
+        let izimodal = GM_getResourceText('izimodal');
+        GM_addStyle(izimodal);
     }
 
     bindEvent() {
         // Open the modal when pressing the numpad 8 key
         $(document).on('keyup', (e) => {
             if (e.keyCode === 104) {
-                this.$modal.addClass('c-is-active');
+                this.$modal.iziModal('open');
             }
         });
 
