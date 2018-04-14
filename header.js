@@ -5,7 +5,7 @@
 // @author       Anonymous
 // @match        https://f95zone.com/*
 // @require      https://code.jquery.com/jquery-3.2.1.min.js
-// @resource     f95 https://raw.githubusercontent.com/jvc06042017/f95-threads/master/bulma.css?v=2
+// @resource     f95 https://raw.githubusercontent.com/jvc06042017/f95-threads/master/bulma.css?v=3
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle

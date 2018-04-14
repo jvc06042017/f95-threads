@@ -24,38 +24,38 @@ class Modal {
     appendToBody() {
         this.$modal = $(`
         <div id="f95-modal" class="f95-modal">
-            <div class="f95-modal-background" data-close="true"></div>
+            <div data-close="true" class="f95-modal-background"></div>
             <div class="f95-modal-card">
                 <header class="f95-modal-card-head" style="background-color: #1E2029 !important">
                     <p class="f95-modal-card-title f95-has-text-grey-lighter">F95 - Threads</p>
-                    <button class="f95-delete" data-close="true"></button>
+                    <button data-close="true" class="f95-delete"></button>
                 </header>
                 <section class="f95-modal-card-body" style="background-color: #292B37 !important">
                     <div class="f95-columns">
                         <div class="f95-column">
                             <h5 data-check="good" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Good</h5>
                             <input class="f95-input" data-search="good" type="text">
-                            <div id="good-list"></div>
+                            <div data-list="good"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="waiting" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Waiting</h5>
                             <input class="f95-input" data-search="waiting" type="text">
-                            <div id="waiting-list"></div>
+                            <div data-list="waiting"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="downloaded" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Downloaded</h5>
                             <input class="f95-input" data-search="downloaded" type="text">
-                            <div id="downloaded-list"></div>
+                            <div data-list="downloaded"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="bad" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Bad</h5>
                             <input class="f95-input" data-search="bad" type="text">
-                            <div id="bad-list"></div>
+                            <div data-list="bad"></div>
                         </div>
                     </div>
                 </section>
                 <footer class="f95-modal-card-foot f95-buttons f95-is-right" style="background-color: #1E2029 !important">
-                    <button class="f95-button f95-is-dark">Close</button>
+                    <button data-close="true" class="f95-button f95-is-dark">Close</button>
                 </footer>
             </div>
         </div>`);
@@ -200,7 +200,7 @@ class Modal {
             let tags = thread.title.match(/\[.+?\]/g) !== null ? thread.title.match(/\[.+?\]/g).join('  ') : '';
 
             let $card = $(`
-            <div class="f95-card ${thread.desc}-card" title="${tags}" data-id="${thread.id}">
+            <div title="${tags}" data-id="${thread.id}" class="f95-card ${thread.desc}-card" style="cursor: pointer">
                 <div class="f95-card-content f95-has-text-white">
                     ${title}
                 </div>
@@ -210,7 +210,7 @@ class Modal {
                 window.location.replace(Utility.getUrlFromId(thread.id));
             });
 
-            let $column = this.$modal.find(`#${thread.desc}-list`);
+            let $column = this.$modal.find(`[data-list="${thread.desc}"]`);
             $column.append($card);
         });
     }
