@@ -55,7 +55,7 @@ class Modal {
                     </div>
                 </section>
                 <footer class="f95-modal-card-foot f95-buttons f95-is-right" style="background-color: #1E2029 !important">
-                    <button class="f95-button f95-has-text-grey-lighter">Close</button>
+                    <button class="f95-button f95-is-dark">Close</button>
                 </footer>
             </div>
         </div>`);
