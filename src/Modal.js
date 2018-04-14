@@ -28,58 +28,34 @@ class Modal {
             <div class="f95-modal-card">
                 <header class="f95-modal-card-head" style="background-color: #1E2029 !important">
                     <p class="f95-modal-card-title f95-has-text-grey-lighter">F95 - Threads</p>
-<<<<<<< HEAD
-                    <button class="f95-delete" data-close="true"></button>
-=======
                     <button data-close="true" class="f95-delete"></button>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                 </header>
                 <section class="f95-modal-card-body" style="background-color: #292B37 !important">
                     <div class="f95-columns">
                         <div class="f95-column">
                             <h5 data-check="good" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Good</h5>
                             <input class="f95-input" data-search="good" type="text">
-<<<<<<< HEAD
-                            <div id="good-list"></div>
-=======
                             <div data-list="good"></div>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                         </div>
                         <div class="f95-column">
                             <h5 data-check="waiting" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Waiting</h5>
                             <input class="f95-input" data-search="waiting" type="text">
-<<<<<<< HEAD
-                            <div id="waiting-list"></div>
-=======
                             <div data-list="waiting"></div>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                         </div>
                         <div class="f95-column">
                             <h5 data-check="downloaded" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Downloaded</h5>
                             <input class="f95-input" data-search="downloaded" type="text">
-<<<<<<< HEAD
-                            <div id="downloaded-list"></div>
-=======
                             <div data-list="downloaded"></div>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                         </div>
                         <div class="f95-column">
                             <h5 data-check="bad" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Bad</h5>
                             <input class="f95-input" data-search="bad" type="text">
-<<<<<<< HEAD
-                            <div id="bad-list"></div>
-=======
                             <div data-list="bad"></div>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                         </div>
                     </div>
                 </section>
                 <footer class="f95-modal-card-foot f95-buttons f95-is-right" style="background-color: #1E2029 !important">
-<<<<<<< HEAD
-                    <button class="f95-button f95-has-text-grey-lighter">Close</button>
-=======
                     <button data-close="true" class="f95-button f95-is-dark">Close</button>
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
                 </footer>
             </div>
         </div>`);
@@ -135,16 +111,11 @@ class Modal {
                     });
 
                     $i.addClass((t.title !== newTitle ? 'fa-exclamation' : 'fa-times'));
-                    $element.prepend($i);
+                    $element.find('.f95-card-content').prepend($i);
                     count++;
 
                     if (count === threads.length) {
-                        let $span = $('<span/>', {
-                            text: ' - Done',
-                            style: 'color: green'
-                        });
-                        $('.c-modal-card-title.c-dark').append($span);
-                        setTimeout(() => $span.remove(), 3000);
+                        alert('Done');
                     }
                 });
             });
@@ -222,27 +193,22 @@ class Modal {
             let title = thread.title.replace(/\[.*?\]/g, '').trim();
             // get everything between '[' and ']'
             let tags = thread.title.match(/\[.+?\]/g) !== null ? thread.title.match(/\[.+?\]/g).join('  ') : '';
+            let url = Utility.getUrlFromId(thread.id);
 
             let $card = $(`
-<<<<<<< HEAD
-            <div class="f95-card ${thread.desc}-card" title="${tags}" data-id="${thread.id}">
-=======
-            <div title="${tags}" data-id="${thread.id}" class="f95-card ${thread.desc}-card" style="cursor: pointer">
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
-                <div class="f95-card-content f95-has-text-white">
-                    ${title}
+            <a href="${url}" data-id="${thread.id}" title="${tags}">
+                <div class="f95-card ${thread.desc}-card">
+                    <div class="f95-card-content f95-has-text-white">
+                        ${title}
+                    </div>
                 </div>
-            </div>`);
+            </a>`);
 
             $card.click(() => {
-                window.location.replace(Utility.getUrlFromId(thread.id));
+                window.location.replace(url);
             });
 
-<<<<<<< HEAD
-            let $column = this.$modal.find(`#${thread.desc}-list`);
-=======
             let $column = this.$modal.find(`[data-list="${thread.desc}"]`);
->>>>>>> c39cf3f1aa09ddba8a4ce1c59b2c30477ffcacb7
             $column.append($card);
         });
     }
