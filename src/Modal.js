@@ -26,55 +26,51 @@ class Modal {
         <div id="f95-modal" class="f95-modal">
             <div class="f95-modal-background" data-close="true"></div>
             <div class="f95-modal-card">
-                <header class="f95-modal-card-head">
-                    <p class="f95-modal-card-title">F95 - Threads</p>
+                <header class="f95-modal-card-head" style="background-color: #1E2029 !important">
+                    <p class="f95-modal-card-title f95-has-text-grey-lighter">F95 - Threads</p>
                     <button class="f95-delete" data-close="true"></button>
                 </header>
-                <section class="f95-modal-card-body">
+                <section class="f95-modal-card-body" style="background-color: #292B37 !important">
                     <div class="f95-columns">
                         <div class="f95-column">
-                            <h1 data-check="good">Good</h1>
-                            <input data-search="good" type="text">
+                            <h5 data-check="good" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Good</h5>
+                            <input class="f95-input" data-search="good" type="text">
                             <div id="good-list"></div>
                         </div>
                         <div class="f95-column">
-                            <h1 data-check="waiting">Waiting</h1>
-                            <input data-search="waiting" type="text">
+                            <h5 data-check="waiting" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Waiting</h5>
+                            <input class="f95-input" data-search="waiting" type="text">
                             <div id="waiting-list"></div>
                         </div>
                         <div class="f95-column">
-                            <h1 data-check="downloaded">Downloaded</h1>
-                            <input data-search="downloaded" type="text">
+                            <h5 data-check="downloaded" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Downloaded</h5>
+                            <input class="f95-input" data-search="downloaded" type="text">
                             <div id="downloaded-list"></div>
                         </div>
                         <div class="f95-column">
-                            <h1 data-check="bad">Bad</h1>
-                            <input data-search="bad" type="text">
+                            <h5 data-check="bad" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Bad</h5>
+                            <input class="f95-input" data-search="bad" type="text">
                             <div id="bad-list"></div>
                         </div>
                     </div>
                 </section>
-                <footer class="f95-modal-card-foot">
-                    <button class="f95-button">Close</button>
+                <footer class="f95-modal-card-foot f95-buttons f95-is-right" style="background-color: #1E2029 !important">
+                    <button class="f95-button f95-has-text-grey-lighter">Close</button>
                 </footer>
             </div>
         </div>`);
 
         GM_addStyle(`
             .good-card {
-                color: white !important;;
                 background-color: #008f5a !important;
             }
             .waiting-card {
-                color: white !important;;
                 background-color: #0696BB !important;
             }
             .downloaded-card {
-                color: white !important;;
                 background-color: #696969 !important;
             }
             .bad-card {
-                color: white !important;;
                 background-color: #710 !important;
             }
         `);
@@ -198,18 +194,24 @@ class Modal {
 
         // Create an element for each saved thread and add it to the corresponding column
         threads.forEach((thread) => {
-            let card = $('<a/>', {
-                // remove everything between '[' and ']'
-                'text': thread.title.replace(/\[.*?\]/g, '').trim(),
-                // get everything between '[' and ']'
-                'title': thread.title.match(/\[.+?\]/g) !== null ? thread.title.match(/\[.+?\]/g).join('  ') : '',
-                'class': `c-list-group-item ${thread.desc}-card`,
-                'data-id': thread.id,
-                'href': Utility.getUrlFromId(thread.id)
+            // remove everything between '[' and ']'
+            let title = thread.title.replace(/\[.*?\]/g, '').trim();
+            // get everything between '[' and ']'
+            let tags = thread.title.match(/\[.+?\]/g) !== null ? thread.title.match(/\[.+?\]/g).join('  ') : '';
+
+            let $card = $(`
+            <div class="f95-card ${thread.desc}-card" title="${tags}" data-id="${thread.id}">
+                <div class="f95-card-content f95-has-text-white">
+                    ${title}
+                </div>
+            </div>`);
+
+            $card.click(() => {
+                window.location.replace(Utility.getUrlFromId(thread.id));
             });
 
             let $column = this.$modal.find(`#${thread.desc}-list`);
-            $column.append(card);
+            $column.append($card);
         });
     }
 }
