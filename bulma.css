@@ -99,6 +99,10 @@
   width: 2px;
 }
 
+.f95-delete:after, .f95-delete:before {
+  background-color: white;
+}
+
 .f95-delete:hover, .f95-modal-close:hover, .f95-delete:focus, .f95-modal-close:focus {
   background-color: rgba(10, 10, 10, 0.3);
 }
