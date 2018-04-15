@@ -1,4 +1,4 @@
-/* global GM_addStyle */
+import Utility from './Utility';
 
 let ThreadList = {};
 
@@ -26,7 +26,7 @@ ThreadList.init = function (threads) {
         // if it has been tagged
         if(matchingThread){
             // add the class to highlight it's description
-            $aTag.addClass(matchingThread.desc);
+            $aTag.css('color', Utility.colors[matchingThread.desc]);
             // if it's not a bad thread and the title has changed
             if (matchingThread.desc !== 'bad' && matchingThread.title !== title) {
                 // make the title flash
@@ -39,28 +39,6 @@ ThreadList.init = function (threads) {
     setInterval(function () {
         threadsToFlash.forEach(($t) => $t.toggleClass('white-flash'));
     }, 750);
-
-    GM_addStyle(`
-        .good {
-            color: #008f5a !important;
-            cursor: pointer;
-        }
-        .waiting {
-            color: #0696BB !important;
-            cursor: pointer;
-        }
-        .downloaded {
-            color: #696969 !important;
-            cursor: pointer;
-        }
-        .bad {
-            color: #710 !important;
-            cursor: pointer;
-        }
-        .white-flash {
-            color: #FFF !important;
-        }
-    `);
 };
 
 export default ThreadList;

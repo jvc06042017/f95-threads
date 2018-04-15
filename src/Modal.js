@@ -1,7 +1,5 @@
 import Utility from './Utility';
 
-/* global GM_addStyle GM_setValue GM_getResourceText */
-
 class Modal {
     constructor(threads) {
         this.$modal = {};
@@ -28,6 +26,8 @@ class Modal {
             <div class="f95-modal-card">
                 <header class="f95-modal-card-head" style="background-color: #1E2029 !important">
                     <p class="f95-modal-card-title f95-has-text-grey-lighter">F95 - Threads</p>
+                    <span id="saveThreads" class="fa fa-save" style="cursor: pointer; margin-right: 1em"></span>
+                    <span id="uploadThreads" class="fa fa-upload" style="cursor: pointer; margin-right: 1em"></span>
                     <button data-close="true" class="f95-delete"></button>
                 </header>
                 <section class="f95-modal-card-body" style="background-color: #292B37 !important">
@@ -35,22 +35,22 @@ class Modal {
                         <div class="f95-column">
                             <h5 data-check="good" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Good</h5>
                             <input class="f95-input" data-search="good" type="text">
-                            <div data-list="good"></div>
+                            <div data-list="good" class="f95-scrollbar" style="height: 70vh; overflow: auto;"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="waiting" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Waiting</h5>
                             <input class="f95-input" data-search="waiting" type="text">
-                            <div data-list="waiting"></div>
+                            <div data-list="waiting" class="f95-scrollbar" style="height: 70vh; overflow: auto;"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="downloaded" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Downloaded</h5>
                             <input class="f95-input" data-search="downloaded" type="text">
-                            <div data-list="downloaded"></div>
+                            <div data-list="downloaded" class="f95-scrollbar" style="height: 70vh; overflow: auto;"></div>
                         </div>
                         <div class="f95-column">
                             <h5 data-check="bad" class="f95-is-5 f95-has-text-centered f95-has-text-grey-lighter">Bad</h5>
                             <input class="f95-input" data-search="bad" type="text">
-                            <div data-list="bad"></div>
+                            <div data-list="bad" class="f95-scrollbar" style="height: 70vh; overflow: auto;"></div>
                         </div>
                     </div>
                 </section>
@@ -60,27 +60,8 @@ class Modal {
             </div>
         </div>`);
 
-        GM_addStyle(`
-            .good-card {
-                background-color: #008f5a !important;
-            }
-            .waiting-card {
-                background-color: #0696BB !important;
-            }
-            .downloaded-card {
-                background-color: #696969 !important;
-            }
-            .bad-card {
-                background-color: #710 !important;
-            }
-        `);
-
         // Add the modal to the website
         $(document.body).append(this.$modal);
-
-        // Add css for the modal
-        let f95 = GM_getResourceText('f95');
-        GM_addStyle(f95);
     }
 
     bindEvent() {
@@ -167,7 +148,7 @@ class Modal {
                 }
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    GM_setValue('threads', e.target.result);
+                    Utility.saveThreads(e.target.result, true);
                     location.reload();
                 };
                 reader.readAsText(file);
@@ -197,7 +178,7 @@ class Modal {
 
             let $card = $(`
             <a href="${url}" data-id="${thread.id}" title="${tags}">
-                <div class="f95-card ${thread.desc}-card">
+                <div class="f95-card" style="background: ${Utility.colors[thread.desc]} !important">
                     <div class="f95-card-content f95-has-text-white">
                         ${title}
                     </div>

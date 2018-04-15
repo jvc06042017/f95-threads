@@ -5,6 +5,8 @@ import Utility from './Utility';
 
 let threads = Utility.getThreads();
 
+Utility.addCSS();
+
 new Modal(threads);
 
 if (window.location.href.includes('https://f95zone.com/threads/')) {
